@@ -21,7 +21,7 @@ func CreateArticle(c *gin.Context) {
 }
 
 func QueryArticle(c *gin.Context) {
-	var s service.CreateArticleService
+	var s service.QueryArticleService
 	err := c.ShouldBind(&s)
 	if err == nil {
 		var res = s.Query()

@@ -24,3 +24,13 @@ func (service *CreateModuleService) Create() serializer.Response {
 		Msg:    "创建成功",
 	}
 }
+
+func QueryModule() serializer.Response {
+	var modules []table.Module
+	model.DB.Find(&modules)
+	return serializer.Response{
+		Status: 200,
+		Data:   modules,
+		Msg:    "查询成功",
+	}
+}

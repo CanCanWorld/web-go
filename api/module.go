@@ -17,3 +17,8 @@ func CreateModule(c *gin.Context) {
 		c.JSON(400, err)
 	}
 }
+
+func QueryModule(c *gin.Context) {
+	var res = service.QueryModule()
+	c.JSON(200, res)
+}

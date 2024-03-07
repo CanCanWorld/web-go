@@ -7,5 +7,7 @@ func migration() {
 	DB.Set("gorm:table_option", "charset=utf8mb4").
 		AutoMigrate(&table.User{}).
 		AutoMigrate(&table.Module{}).
-		AutoMigrate(&table.Article{})
+		AutoMigrate(&table.Article{}).
+		AutoMigrate(&table.ArticleImage{}).
+		AutoMigrate(&table.Comment{})
 }
