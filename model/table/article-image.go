@@ -2,8 +2,8 @@ package table
 
 import "github.com/jinzhu/gorm"
 
-type Module struct {
+type ArticleImage struct {
 	gorm.Model
-	Title string
-	Cover string
+	Aid  uint
+	Path string
 }

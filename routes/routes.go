@@ -20,6 +20,8 @@ func NewRouter() *gin.Engine {
 		authed.Use(middleware.JWT())
 		{
 			authed.POST("createModule", api.CreateModule)
+			authed.POST("createArticle", api.CreateArticle)
+			authed.POST("queryArticle", api.QueryArticle)
 		}
 	}
 	return r

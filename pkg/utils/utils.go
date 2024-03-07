@@ -46,7 +46,7 @@ func ParseToken(token string) (*Claims, error) {
 	}
 	return nil, err
 }
-func GetIdByToken(c *gin.Context) uint {
+func GetUidByContext(c *gin.Context) uint {
 	claim, _ := ParseToken(c.GetHeader("Authorization"))
 	return claim.Id
 }

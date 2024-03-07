@@ -8,7 +8,8 @@ import (
 type User struct {
 	gorm.Model
 	Username       string `gorm:"unique"`
-	PasswordDigest string //密文，加密后的密码
+	PasswordDigest string
+	Avatar         string
 }
 
 // SetPassword 加密
