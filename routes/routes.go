@@ -23,6 +23,7 @@ func NewRouter() *gin.Engine {
 			authed.POST("createModule", api.CreateModule)
 			authed.POST("createArticle", api.CreateArticle)
 			authed.POST("queryArticle", api.QueryArticle)
+			authed.POST("createComment", api.CreateComment)
 		}
 	}
 	return r
