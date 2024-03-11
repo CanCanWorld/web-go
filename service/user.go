@@ -13,6 +13,59 @@ type UserService struct {
 	Password string `form:"password" json:"password" binding:"required,min=5,max=16"`
 }
 
+func (service *UserService) LoginOrRegister() serializer.Response {
+
+	var user table.User
+	var err = model.DB.Where("username=?", service.Username).First(&user).Error
+	if err != nil {
+		if gorm.IsRecordNotFoundError(err) {
+			user.Username = service.Username
+			//密码加密
+			var err = user.SetPassword(service.Password)
+			if err != nil {
+				return serializer.Response{
+					Status: 400,
+					Msg:    err.Error(),
+				}
+			}
+			//创建用户
+			err = model.DB.Create(&user).Error
+			if err != nil {
+				return serializer.Response{
+					Status: 500,
+					Msg:    "数据库操作错误",
+				}
+			} else {
+				var token, e = utils.GenerateToken(user.ID, service.Username, service.Password)
+				if e != nil {
+					return serializer.Response{
+						Status: 500,
+						Msg:    "Token签发错误",
+					}
+				}
+				return serializer.Response{
+					Status: 200,
+					Data: serializer.TokenData{
+						User:  serializer.BuildUser(user),
+						Token: token,
+					},
+					Msg: "登录成功",
+				}
+			}
+		} else {
+			return serializer.Response{
+				Status: 500,
+				Msg:    "用户已存在",
+			}
+		}
+	} else {
+		return serializer.Response{
+			Status: 500,
+			Msg:    "用户已存在222",
+		}
+	}
+}
+
 func (service *UserService) Register() serializer.Response {
 	var user table.User
 	var count int

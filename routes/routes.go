@@ -16,10 +16,11 @@ func NewRouter() *gin.Engine {
 	{
 		v1.POST("user/register", api.UserRegister)
 		v1.POST("user/login", api.UserLogin)
-		v1.POST("queryModule", api.QueryModule)
+		v1.POST("user/loginOrRegister", api.UserLogin)
 		authed := v1.Group("/")
 		authed.Use(middleware.JWT())
 		{
+			authed.POST("queryModule", api.QueryModule)
 			authed.POST("createModule", api.CreateModule)
 			authed.POST("createArticle", api.CreateArticle)
 			authed.POST("queryArticle", api.QueryArticle)
