@@ -16,7 +16,7 @@ func NewRouter() *gin.Engine {
 	{
 		v1.POST("user/register", api.UserRegister)
 		v1.POST("user/login", api.UserLogin)
-		v1.POST("user/loginOrRegister", api.UserLogin)
+		v1.POST("user/loginOrRegister", api.UserLoginOrRegister)
 		authed := v1.Group("/")
 		authed.Use(middleware.JWT())
 		{

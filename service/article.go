@@ -5,6 +5,7 @@ import (
 	"mime/multipart"
 	"web-go/model"
 	"web-go/model/table"
+	"web-go/pkg/utils"
 	"web-go/serializer"
 )
 
@@ -15,12 +16,13 @@ type CreateArticleService struct {
 	Images  []multipart.FileHeader `json:"images" form:"images"`
 }
 
-func (service CreateArticleService) Create(uid uint) serializer.Response {
+func (service CreateArticleService) Create(user utils.Claims) serializer.Response {
 	var article = table.Article{
-		Uid:     uid,
-		Mid:     service.Mid,
-		Title:   service.Title,
-		Content: service.Content,
+		Uid:      user.Id,
+		Username: user.Username,
+		Mid:      service.Mid,
+		Title:    service.Title,
+		Content:  service.Content,
 	}
 	for _, image := range service.Images {
 		fmt.Println("file: ", image.Filename)

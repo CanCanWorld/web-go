@@ -9,10 +9,10 @@ import (
 
 func CreateArticle(c *gin.Context) {
 	var s service.CreateArticleService
-	uid := utils.GetUidByContext(c)
+	user := utils.GetUidByContext(c)
 	err := c.ShouldBind(&s)
 	if err == nil {
-		var res = s.Create(uid)
+		var res = s.Create(*user)
 		c.JSON(200, res)
 	} else {
 		logrus.Error(err)
